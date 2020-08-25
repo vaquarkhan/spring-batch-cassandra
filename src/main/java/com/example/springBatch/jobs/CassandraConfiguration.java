@@ -45,6 +45,18 @@ public class CassandraConfiguration  extends AbstractCassandraConfiguration {
 	@Value("${spring.data.cassandra.schema-action}")
 	private String schemaAction;
 
+	
+	 @Bean
+	@Override
+	public CassandraClusterFactoryBean cluster() {
+		CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
+		PlainTextAuthProvider auth = new PlainTextAuthProvider("username", "password");
+		cluster.setContactPoints("xx.xxx.xx.xxxx");
+		cluster.setPort(Integer.parseInt("9042"));
+		cluster.setAuthProvider(auth);
+		return cluster;
+	}
+	
     @Override
     protected String getKeyspaceName() {
     	return keyspaceName;
